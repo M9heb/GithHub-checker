@@ -4,10 +4,11 @@ import SearchBox from "../components/Home/SearchBox";
 import Followers from "../components/Home/Followers";
 import UserProfile from "../components/Home/UserProfile";
 import axios from "axios";
+// import PieChart from "../components/Chart/PieChart";
 const HomePage = (props) => {
   const [user, setUser] = useState(null);
-  const [username, setUsername] = useState("");
-  // console.log(user);
+  const [username, setUsername] = useState("m9heb");
+  console.log(user);
   // console.log(user.followers_url);
   const handleUserInfoFetched = (userData) => {
     setUser(userData);
@@ -38,6 +39,7 @@ const HomePage = (props) => {
           followers_url={user.followers_url}
         />
       )}
+      {/* {user && <PieChart username={username || user.login} />} */}
     </div>
   );
 };
