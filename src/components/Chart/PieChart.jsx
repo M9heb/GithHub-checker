@@ -1,41 +1,83 @@
 import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
-import LanguageData from "./ChartData";
+import axios from "axios";
+import { Chart as ChartJS } from "chart.js/auto";
+// const [labels, setLabels] = useState(["html", "css", "javascript"]);
+
 const PieChart = (props) => {
-  const [summaryData, setSummaryData] = useState({});
-  const [dataset, setDataset] = useState({});
-  const datalabels = [];
+  const [repos, setRepos] = useState([]);
+  const [languageurlData, setLanguageurlData] = useState([]);
+  const [summarizedData, setSummarizedData] = useState({});
   useEffect(() => {
-    datalabels = Object.keys(summaryData);
-  }, [summaryData]);
-  const onSetdata = (data) => {
-    setSummaryData(data);
+    fetchData();
+  }, [props.username]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.github.com/users/${props.username}/repos?per_page=100`
+      );
+      if (response.status === 200) {
+        setRepos(response.data);
+
+        const dataPromises = response.data.map((item) =>
+          fetch(item.languages_url)
+        );
+        const responses = await Promise.all(dataPromises);
+
+        const languageDataArray = await Promise.all(
+          responses.map(async (response) => {
+            if (response.ok) {
+              return await response.json();
+            } else {
+              console.log("Error fetching data:", response.status);
+              return null;
+            }
+          })
+        );
+
+        setLanguageurlData(languageDataArray);
+      }
+    } catch (error) {
+      console.log("Error fetching data: ", error);
+    }
   };
-  const onSetDataset = (data) => {
-    setDataset(data);
+  useEffect(() => {
+    if (languageurlData.length === repos.length) {
+      setSummarizedData(summarizeLanguages(languageurlData));
+    }
+  }, [languageurlData, repos.length]);
+  const summarizeLanguages = (dataArray) => {
+    const summarizedObject = {};
+
+    dataArray.forEach((data) => {
+      for (const language in data) {
+        if (data.hasOwnProperty(language)) {
+          summarizedObject[language] =
+            (summarizedObject[language] || 0) + data[language];
+        }
+      }
+    });
+
+    return summarizedObject;
+  };
+
+  const chartData = () => {
+    return {
+      labels: Object.getOwnPropertyNames(summarizedData),
+      datasets: [
+        {
+          label: "languages",
+          data: Object.values(summarizedData),
+        },
+      ],
+    };
   };
   return (
-    <React.Fragment>
-      {/* <LanguageData
-        username={props.username}
-        summarizedData={onSetdata}
-        completeData={onSetDataset}
-      />
-      <Pie data={{ labels: datalabels, data: summaryData }} /> */}
-    </React.Fragment>
+    <div className="chart">
+      {Object.keys(summarizedData).length > 0 && <Pie data={chartData()} />}
+    </div>
   );
 };
-// const PieChart = new Chart(ctx, {
-//   type: "line",
-//   data: data,
-//   options: {
-//     onClick: (e) => {
-//       const canvasPosition = getRelativePosition(e, chart);
 
-//       // Substitute the appropriate scale IDs
-//       const dataX = chart.scales.x.getValueForPixel(canvasPosition.x);
-//       const dataY = chart.scales.y.getValueForPixel(canvasPosition.y);
-//     },
-//   },
-// });
 export default PieChart;

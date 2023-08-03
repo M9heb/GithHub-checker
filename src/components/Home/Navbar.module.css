@@ -11,6 +11,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 6.8rem;
+  z-index: 10;
 }
 .logo {
   color: #221f03;

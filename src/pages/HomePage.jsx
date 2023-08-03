@@ -4,7 +4,7 @@ import SearchBox from "../components/Home/SearchBox";
 import Followers from "../components/Home/Followers";
 import UserProfile from "../components/Home/UserProfile";
 import axios from "axios";
-// import PieChart from "../components/Chart/PieChart";
+import PieChart from "../components/Chart/PieChart";
 const HomePage = (props) => {
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("m9heb");
@@ -30,7 +30,7 @@ const HomePage = (props) => {
   }, [username]);
   return (
     <div className="container--home">
-      {<Navbar />}
+      {<Navbar onLogout={props.logout} />}
       <SearchBox uname={username} onUserInfoFetched={handleUserInfoFetched} />
       {user && <UserProfile user={user} />}
       {user && (
@@ -39,7 +39,7 @@ const HomePage = (props) => {
           followers_url={user.followers_url}
         />
       )}
-      {/* {user && <PieChart username={username || user.login} />} */}
+      {user && <PieChart username={username || user.login} />}
     </div>
   );
 };

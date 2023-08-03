@@ -5,10 +5,12 @@ const LoginInput = (props) => {
     <div className={classes.inputBox}>
       <div className={classes.logo}>{props.logo}</div>
       <input
-        itemType={props.itemType}
+        type={props.type}
         className={classes.input}
         placeholder={props.placeholder}
         onChange={props.onChange}
+        {...props.others}
+        required
       >
         {props.children}
       </input>

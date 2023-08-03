@@ -93,3 +93,7 @@ p {
 .link-active {
   color: #221f03;
 }
+
+.chart {
+  width: 50rem;
+}

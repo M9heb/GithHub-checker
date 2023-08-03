@@ -5,7 +5,37 @@ import ButtonLg from "../components/UI/ButtonLg";
 import Card from "../components/UI/Card";
 import { ReactComponent as Banner } from "../components/UI/Banner.svg";
 const LoginPage = (props) => {
-  const submitHandler = () => {};
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const changeEmail = (input) => {
+    setEmail(input.target.value);
+  };
+  const changePassword = (input) => {
+    setPassword(input.target.value);
+  };
+
+  const isEmailValid = (email) => {
+    if (email.includes("@")) {
+      console.log("email is correct");
+      return true;
+    } else return false;
+  };
+  const isPasswordValid = (password) => {
+    if (password.length >= 8) {
+      console.log("password is correct");
+
+      return true;
+    } else return false;
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    if (isEmailValid(email) && isPasswordValid(password)) {
+      props.setLoggedIn(true);
+      localStorage.setItem("loggedIn", "1");
+    }
+  };
   // const getInput = (input) => {
   //   return input;
   // };
@@ -96,7 +126,7 @@ const LoginPage = (props) => {
             Sign in with facebook
           </LoginUptions>
           <p>or</p>
-          <form onSubmit={submitHandler}>
+          <form onSubmit={submitHandler} className="flex-v gap-15 ">
             <LoginInput
               logo={
                 <svg
@@ -128,8 +158,10 @@ const LoginPage = (props) => {
                   />
                 </svg>
               }
+              value={email}
+              onChange={changeEmail}
               placeholder="example@email.com"
-              htmlType="email"
+              type="email"
             />
             <LoginInput
               logo={
@@ -146,7 +178,11 @@ const LoginPage = (props) => {
                   />
                 </svg>
               }
+              value={password}
+              onChange={changePassword}
+              type="password"
               placeholder="Password"
+              others={{ minLength: 8 }}
             />
             <ButtonLg>Submit</ButtonLg>
           </form>
