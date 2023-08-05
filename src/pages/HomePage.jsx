@@ -13,6 +13,7 @@ const HomePage = (props) => {
   // console.log(user.followers_url);
   const handleUserInfoFetched = (userData) => {
     setUser(userData);
+    setUsername(userData.login);
   };
   const handleFollowerSelection = (selected) => {
     console.log(selected);

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PieChart from "./PieChart";
+import BarChart from "./BarChart";
 
 const ChartContainer = (props) => {
   const [repos, setRepos] = useState([]);
@@ -11,9 +12,8 @@ const ChartContainer = (props) => {
   const [forks, setForks] = useState(null);
   useEffect(() => {
     console.log(repos);
-    console.log(languages, "lanugages");
     console.log(mostUsed);
-    console.log(mostPopular);
+    console.log(mostPopular, "most popular");
     console.log(stars);
     console.log(forks);
   }, [repos, languages, mostPopular, mostUsed, stars, forks]);
@@ -68,11 +68,11 @@ const ChartContainer = (props) => {
         .slice(0, 5);
       setMostUsed(mostUsedLanguages);
 
-      const mostPopularLanguages = Object.values(languages)
-        .sort((a, b) => b.stars - a.stars)
+      const mostPopularRepos = repos
+        .sort((a, b) => b.stargazers_count - a.stargazers_count)
         .map((item) => ({ ...item, value: item.stars }))
         .slice(0, 5);
-      setMostPopular(mostPopularLanguages);
+      setMostPopular(mostPopularRepos);
 
       const { stars, forks } = repos.reduce(
         (total, item) => {
@@ -105,6 +105,7 @@ const ChartContainer = (props) => {
   return (
     <div className="container--chart">
       {languages && <PieChart languages={languages} />}
+      {mostPopular && <BarChart mostPopular={mostPopular} />}
     </div>
   );
 };
