@@ -1,14 +1,14 @@
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
-const BarChart = (props) => {
+const BarVChart = (props) => {
   const chartData = () => {
     return {
-      labels: props.mostPopular.map((repo) => repo.name),
+      labels: props.forks.map((repo) => repo.label),
       datasets: [
         {
-          label: "Popularity",
-          data: props.mostPopular.map((repo) => repo.stargazers_count),
+          label: "Forks",
+          data: props.forks.map((repo) => repo.value),
         },
       ],
     };
@@ -25,9 +25,10 @@ const BarChart = (props) => {
                 family: "open sans",
               },
               display: true,
-              text: "Most Popular repos",
+              text: "Most Forked repos",
             },
           },
+          indexAxis: "y",
           backgroundColor: [
             "rgba(255, 99, 132)",
             "rgba(54, 162, 235)",
@@ -43,4 +44,4 @@ const BarChart = (props) => {
   );
 };
 
-export default BarChart;
+export default BarVChart;

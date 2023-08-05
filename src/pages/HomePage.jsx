@@ -16,7 +16,6 @@ const HomePage = (props) => {
     setUsername(userData.login);
   };
   const handleFollowerSelection = (selected) => {
-    console.log(selected);
     setUsername(selected);
   };
 

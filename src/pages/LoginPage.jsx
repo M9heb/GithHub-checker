@@ -17,14 +17,11 @@ const LoginPage = (props) => {
 
   const isEmailValid = (email) => {
     if (email.includes("@")) {
-      console.log("email is correct");
       return true;
     } else return false;
   };
   const isPasswordValid = (password) => {
     if (password.length >= 8) {
-      console.log("password is correct");
-
       return true;
     } else return false;
   };

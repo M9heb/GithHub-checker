@@ -12,6 +12,15 @@ html {
 body {
   background: #cbefff;
 }
+.container--chart {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 17rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7rem;
+  align-items: end;
+}
 .container--home {
   max-width: 144rem;
   margin: 17rem auto 0;
@@ -95,5 +104,8 @@ p {
 }
 
 .chart {
-  width: 50rem;
+  width: 100%;
+  height: 40rem;
+  display: flex;
+  align-items: flex-end;
 }

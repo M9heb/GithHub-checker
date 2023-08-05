@@ -1,25 +1,25 @@
-import { Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
-const PieChart = (props) => {
+const DoughnutChart = (props) => {
   const chartData = () => {
     return {
       labels: props.languages.map((language) => language.label),
       datasets: [
         {
-          label: "Popularity",
+          label: "Stars per Language",
           data: getData(),
         },
       ],
     };
     function getData() {
       const languageArray = Object.values(props.languages);
-      return languageArray.map((language) => language.value);
+      return languageArray.map((language) => language.stars);
     }
   };
   return (
     <div className="chart">
-      <Pie
+      <Doughnut
         data={chartData()}
         options={{
           plugins: {
@@ -29,7 +29,7 @@ const PieChart = (props) => {
                 family: "open sans",
               },
               display: true,
-              text: "Most Popular languase",
+              text: "Stars per language",
             },
           },
         }}
@@ -38,4 +38,4 @@ const PieChart = (props) => {
   );
 };
 
-export default PieChart;
+export default DoughnutChart;
