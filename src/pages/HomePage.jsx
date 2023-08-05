@@ -4,10 +4,11 @@ import SearchBox from "../components/Home/SearchBox";
 import Followers from "../components/Home/Followers";
 import UserProfile from "../components/Home/UserProfile";
 import axios from "axios";
-import PieChart from "../components/Chart/PieChart";
+import ChartContainer from "../components/Chart/ChartContainer";
 const HomePage = (props) => {
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("m9heb");
+
   console.log(user);
   // console.log(user.followers_url);
   const handleUserInfoFetched = (userData) => {
@@ -28,6 +29,7 @@ const HomePage = (props) => {
         console.error("Error fetching followers:", error);
       });
   }, [username]);
+
   return (
     <div className="container--home">
       {<Navbar onLogout={props.logout} />}
@@ -39,7 +41,7 @@ const HomePage = (props) => {
           followers_url={user.followers_url}
         />
       )}
-      {user && <PieChart username={username || user.login} />}
+      <ChartContainer username={username} />
     </div>
   );
 };
