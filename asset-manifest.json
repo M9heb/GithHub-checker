@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/GithHub-checker/static/css/main.0d2c78a7.css",
-    "main.js": "/GithHub-checker/static/js/main.a40aa686.js",
+    "main.css": "/GithHub-checker/static/css/main.e568613e.css",
+    "main.js": "/GithHub-checker/static/js/main.1f3316ae.js",
     "static/media/Banner.svg": "/GithHub-checker/static/media/Banner.1a998a04a4609f07896aae54d27f4dd5.svg",
     "index.html": "/GithHub-checker/index.html",
-    "main.0d2c78a7.css.map": "/GithHub-checker/static/css/main.0d2c78a7.css.map",
-    "main.a40aa686.js.map": "/GithHub-checker/static/js/main.a40aa686.js.map"
+    "main.e568613e.css.map": "/GithHub-checker/static/css/main.e568613e.css.map",
+    "main.1f3316ae.js.map": "/GithHub-checker/static/js/main.1f3316ae.js.map"
   },
   "entrypoints": [
-    "static/css/main.0d2c78a7.css",
-    "static/js/main.a40aa686.js"
+    "static/css/main.e568613e.css",
+    "static/js/main.1f3316ae.js"
   ]
 }
